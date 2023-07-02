@@ -11,5 +11,5 @@ LZ2E = data => {
       for(let j=ofx; j--;) ret = ret[ret.length-ofy+j] + ret
     }
   }
-  return ret
+  return ret.replaceAll('\\\\', '\\')
 }
