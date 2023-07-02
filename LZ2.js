@@ -1,7 +1,8 @@
 LZ2 = str =>{
   str = str.replaceAll('\\','\\\\')
-  for(N=0;N<10;N++){
-    let maxBuffer = 24-N*2
+  let last, end = false, ostr=str
+  for(N=0;!end && N<10;N++){
+    let maxBuffer = 16-N
     let l=str.split('')
     let mind, test
     out=[]
@@ -38,6 +39,14 @@ LZ2 = str =>{
         f+=v[0]>1?String.fromCharCode(255)+String.fromCharCode(l.length-v[1])+String.fromCharCode(v[0]):l[v[1]]
       })
     str = f
+    if(N){
+      if(str.length>=last.length){
+        str = last
+        end = true
+      }
+    }
+    last = str
   }
+  console.log(N+' passes, ' + (Math.round((1-str.length/ostr.length)*10000|0)/100) + '% compression')
   return str
 }
